@@ -1,0 +1,12 @@
+{
+  "best_model": "XGBoost",
+  "metrics": {
+    "accuracy": 0.8921,
+    "precision": 0.8913,
+    "recall": 0.7364,
+    "f1": 0.8065,
+    "roc_auc": 0.9339
+  },
+  "train_size": 596342,
+  "test_size": 143516
+}

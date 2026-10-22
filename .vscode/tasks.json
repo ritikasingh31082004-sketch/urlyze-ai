@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Backend (FastAPI)",
+      "type": "process",
+      "command": "${workspaceFolder}/venv/Scripts/python.exe",
+      "args": ["-m", "uvicorn", "main:app", "--reload"],
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "urlyze", "reveal": "always" }
+    },
+    {
+      "label": "Frontend (React)",
+      "type": "process",
+      "command": "node",
+      "args": ["node_modules/vite/bin/vite.js"],
+      "options": { "cwd": "${workspaceFolder}/frontend" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "urlyze", "reveal": "always" }
+    },
+    {
+      "label": "Start URLYZE AI",
+      "dependsOn": ["Backend (FastAPI)", "Frontend (React)"],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}

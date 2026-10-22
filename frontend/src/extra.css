@@ -1,0 +1,118 @@
+/* ---------- loading ---------- */
+.splash { min-height: 100dvh; display: grid; place-items: center; color: var(--muted); font-family: var(--mono); letter-spacing: 0.1em; }
+
+/* ---------- theme toggle ---------- */
+.theme-toggle {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: none; border: 0; padding: 0; color: var(--muted);
+}
+.theme-toggle:not(.compact) {
+  width: 100%; justify-content: space-between; padding: 10px 12px;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--soft);
+  font-size: 14px; transition: border-color 0.2s;
+}
+.theme-toggle:not(.compact):hover { border-color: var(--cyan); color: var(--text); }
+.tt-track {
+  position: relative; flex: none; width: 62px; height: 30px; border-radius: 999px;
+  background: var(--bg); border: 1px solid var(--line);
+  display: block; transition: background 0.3s, border-color 0.3s;
+}
+.tt-icon { position: absolute; top: 0; bottom: 0; width: 28px; display: grid; place-items: center; z-index: 1; }
+.tt-sun { left: 1px; color: #7a8aa6; }
+.tt-moon { right: 1px; color: #7a8aa6; }
+.tt-knob {
+  position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--cyan) 45%, transparent);
+  transition: transform 0.3s cubic-bezier(0.4, 0.2, 0.2, 1);
+  z-index: 0;
+}
+/* dark: knob on the moon (right); light: knob on the sun (left) */
+:root[data-theme="dark"] .tt-knob { transform: translateX(32px); }
+:root[data-theme="dark"] .tt-moon { color: #04121a; }
+:root[data-theme="light"] .tt-knob { transform: translateX(0); }
+:root[data-theme="light"] .tt-sun { color: #04121a; }
+
+.theme-side { margin-top: auto; }
+.theme-float { display: none; }
+.theme-corner { position: absolute; top: calc(14px + env(safe-area-inset-top, 0px)); right: 14px; }
+@media (max-width: 900px) {
+  .theme-float {
+    display: inline-flex; position: fixed; z-index: 20;
+    top: calc(12px + env(safe-area-inset-top, 0px)); right: 14px;
+    padding: 6px; border-radius: 999px; background: var(--tabbar-bg);
+    border: 1px solid var(--line); backdrop-filter: blur(10px);
+  }
+}
+
+/* ---------- login / sign up ---------- */
+.auth-page {
+  position: relative; min-height: 100dvh; display: grid; place-items: center;
+  padding: 24px 16px;
+  padding-top: calc(24px + env(safe-area-inset-top, 0px));
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+}
+.auth-card {
+  position: relative; width: 100%; max-width: 420px; padding: 30px 26px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line); border-radius: 20px;
+  box-shadow: 0 0 80px color-mix(in srgb, var(--cyan) 9%, transparent), var(--card-shadow);
+  animation: rise 0.5s ease both;
+}
+.auth-brand { text-align: center; margin-bottom: 22px; }
+.auth-brand .brand-logo { margin: 0 auto 14px; width: 52px; height: 52px; border-radius: 14px; }
+.auth-brand h1 { font-size: 30px; letter-spacing: 0.08em; }
+.auth-brand h1 span { color: var(--cyan); text-shadow: var(--title-glow); }
+.auth-brand p { color: var(--muted); font-size: 12px; letter-spacing: 0.25em; text-transform: uppercase; margin-top: 8px; }
+
+.auth-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 5px; background: var(--bg); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 20px; }
+.auth-tabs button { padding: 10px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font-size: 14px; font-weight: 600; transition: all 0.2s; }
+.auth-tabs button.active { background: color-mix(in srgb, var(--cyan) 14%, transparent); color: var(--cyan); }
+
+.auth-form { display: flex; flex-direction: column; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field > span { font-size: 13px; color: var(--muted); }
+.field-box { display: flex; align-items: center; gap: 10px; padding: 0 14px; min-height: 52px; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; color: var(--muted); transition: border-color 0.2s, box-shadow 0.2s; }
+.field-box:focus-within { border-color: var(--cyan); box-shadow: 0 0 0 4px color-mix(in srgb, var(--cyan) 14%, transparent); color: var(--cyan); }
+.field-box input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text); font-family: var(--sans); font-size: 16px; }
+.show-btn { background: none; border: 0; color: var(--muted); font-size: 12px; padding: 6px; }
+.show-btn:hover { color: var(--cyan); }
+.auth-error { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; color: var(--red); background: color-mix(in srgb, var(--red) 9%, transparent); border: 1px solid color-mix(in srgb, var(--red) 38%, transparent); }
+.auth-form .btn-primary { width: 100%; margin-top: 4px; }
+.auth-switch { text-align: center; margin-top: 18px; color: var(--muted); font-size: 14px; }
+.auth-switch button { background: none; border: 0; color: var(--cyan); font-size: 14px; padding: 0; text-decoration: underline; }
+
+/* ---------- sidebar user ---------- */
+.user-chip { display: flex; align-items: center; gap: 10px; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: var(--soft); }
+.avatar { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 10px; font-weight: 700; color: #04121a; background: linear-gradient(135deg, var(--grad-a), var(--grad-b)); }
+.user-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.user-info b { font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-info span { font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.icon-btn { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); }
+.icon-btn:hover { color: var(--red); background: color-mix(in srgb, var(--red) 12%, transparent); }
+
+.account-card { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.account-name { font-size: 18px; font-weight: 700; }
+
+/* ---------- email checker ---------- */
+.email-form { display: flex; flex-direction: column; gap: 12px; }
+.email-box {
+  width: 100%; min-height: 220px; resize: vertical; padding: 16px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+  color: var(--text); font-family: var(--mono); font-size: 14px; line-height: 1.55; outline: 0;
+  box-shadow: var(--card-shadow); transition: border-color 0.2s, box-shadow 0.2s;
+}
+.email-box:focus { border-color: var(--cyan); box-shadow: 0 0 0 4px color-mix(in srgb, var(--cyan) 14%, transparent); }
+.email-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.email-submit { margin-left: auto; }
+.links-box { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+.links-box h3 { font-size: 14px; color: var(--muted); font-weight: 500; margin-bottom: 10px; }
+.link-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+.link-url { font-family: var(--mono); font-size: 12px; overflow-wrap: anywhere; min-width: 0; }
+.kind-badge { display: inline-block; margin-right: 8px; padding: 1px 7px; border-radius: 6px; font-size: 10px; letter-spacing: 0.08em; color: var(--cyan); border: 1px solid color-mix(in srgb, var(--cyan) 38%, transparent); }
+
+@media (max-width: 760px) {
+  .email-submit { width: 100%; margin-left: 0; }
+  .auth-card { padding: 24px 18px; }
+  .account-card { flex-direction: column; align-items: flex-start; }
+}

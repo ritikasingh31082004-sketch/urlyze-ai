@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.pyc
+ml/data/raw/*
+ml/data/processed/*
+node_modules/
+.env
+
+backend/data/
